@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+BRANCH_NAME=$(git symbolic-ref --short HEAD)
+VALID_COMMIT_MSG_REGEX="^$BRANCH_NAME: "
+STARTSWITH_BRANCH_NAME=$(echo $(cat $1) | grep -o -E $VALID_COMMIT_MSG_REGEX)
+
+if [[ -z "$STARTSWITH_BRANCH_NAME" ]]; then
+	echo "$BRANCH_NAME: $(cat "$1")" > $1
+fi
+
+# echo $BRANCH_NAME
+
+
